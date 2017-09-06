@@ -33,30 +33,21 @@ public class mainActivity extends AppCompatActivity {
         btView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tampilkanData();
+                validasiNama();
             }
         });
-
-
     }
 
-    public boolean pilihJurusan(){
+    public void  pilihJurusan(){
         if(rbtRPL.isChecked()){
             pilihJurusannya = "RPL";
-
-            return true;
         }else if (rbtTKJ.isChecked()){
             pilihJurusannya = "TKJ";
-
-            return true;
         }else if (rbtAP.isChecked()){
             pilihJurusannya = "AP";
-
-            return true;
-        }else{
-
+        }else {
+            Toast.makeText(mainActivity.this, "Maaf, jurusan belom dipilih", Toast.LENGTH_SHORT).show();
         }
-        return false;
     }
 
     public void validasiNama(){
@@ -75,26 +66,18 @@ public class mainActivity extends AppCompatActivity {
         }else if (!tvEmail.getText().toString().isEmpty() && tvTglLhr.getText().toString().isEmpty()){
             tvTglLhr.setError("Maaf, Data Tanggal Lahir Harus Diisi!!");
             tvTglLhr.requestFocus();
-        }else if(!tvNama.getText().toString().isEmpty() && !tvAlamat.getText().toString().isEmpty() && !tvNoTelp.getText().toString().isEmpty() && !tvEmail.getText().toString().isEmpty() && tvTglLhr.getText().toString().isEmpty()){
-            tampilkanData();
-        }
-    }
-
-    public void tampilkanData(){
-        validasiNama();
-        pilihJurusan();
-
-        if (pilihJurusannya == null){
-            Toast.makeText(mainActivity.this, "Maaf, Pilih jurusan salah satu!!", Toast.LENGTH_SHORT).show();
         }else {
-            String nama = tvNama.getText().toString();
-            String alamat = tvAlamat.getText().toString();
-            String email = tvEmail.getText().toString();
-            String telp = tvNoTelp.getText().toString();
-            String tglLahir = tvTglLhr.getText().toString();
+            pilihJurusan();
 
-            Toast.makeText(mainActivity.this, ""+nama+""+alamat+""+telp+""+email+""+tglLahir+""+pilihJurusannya, Toast.LENGTH_SHORT).show();
+            if(pilihJurusannya != null){
+                String nama = tvNama.getText().toString();
+                String alamat = tvAlamat.getText().toString();
+                String email = tvEmail.getText().toString();
+                String telp = tvNoTelp.getText().toString();
+                String tglLahir = tvTglLhr.getText().toString();
+                Toast.makeText(mainActivity.this, ""+nama+""+alamat+""+telp+""+email+""+tglLahir+""+pilihJurusannya, Toast.LENGTH_SHORT).show();
+            }
+
         }
-
     }
 }
