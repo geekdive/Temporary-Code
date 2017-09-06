@@ -1,0 +1,100 @@
+package id.co.decoded.moeslim.meet060917;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
+
+public class mainActivity extends AppCompatActivity {
+
+    Button btKirimInt, btKirimBund, btView;
+    EditText tvNama, tvAlamat, tvNoTelp, tvEmail, tvTglLhr;
+    RadioButton rbtRPL, rbtTKJ, rbtAP;
+
+    String pilihJurusannya;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        tvNama = (EditText)findViewById(R.id.txtNama);
+        tvNoTelp = (EditText)findViewById(R.id.txtTelp);
+        tvEmail = (EditText)findViewById(R.id.txtEmail);
+        tvTglLhr = (EditText)findViewById(R.id.txtTanggalLahir);
+        tvAlamat = (EditText)findViewById(R.id.txtAlamat);
+        btView = (Button)findViewById(R.id.btnTampilkan);
+        rbtRPL = (RadioButton)findViewById(R.id.idRPL);
+        rbtTKJ = (RadioButton)findViewById(R.id.idTKJ);
+        rbtAP = (RadioButton)findViewById(R.id.idAP);
+
+        btView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tampilkanData();
+            }
+        });
+
+
+    }
+
+    public boolean pilihJurusan(){
+        if(rbtRPL.isChecked()){
+            pilihJurusannya = "RPL";
+
+            return true;
+        }else if (rbtTKJ.isChecked()){
+            pilihJurusannya = "TKJ";
+
+            return true;
+        }else if (rbtAP.isChecked()){
+            pilihJurusannya = "AP";
+
+            return true;
+        }else{
+
+        }
+        return false;
+    }
+
+    public void validasiNama(){
+        if(tvNama.getText().toString().isEmpty()){
+            tvNama.setError("Maaf, Nama Lengkap Harus Diisi!!");
+            tvNama.requestFocus();
+        }else if (!tvNama.getText().toString().isEmpty() && tvAlamat.getText().toString().isEmpty()){
+            tvAlamat.setError("Maaf, Alamat Lengkap Harus Diisi!!");
+            tvAlamat.requestFocus();
+        }else if (!tvAlamat.getText().toString().isEmpty() && tvNoTelp.getText().toString().isEmpty()){
+            tvNoTelp.setError("Maaf, No. Telp Harus Diisi!!");
+            tvNoTelp.requestFocus();
+        }else if (!tvNoTelp.getText().toString().isEmpty() && tvEmail.getText().toString().isEmpty()){
+            tvEmail.setError("Maaf, Email Valid Harus Diisi!!");
+            tvEmail.requestFocus();
+        }else if (!tvEmail.getText().toString().isEmpty() && tvTglLhr.getText().toString().isEmpty()){
+            tvTglLhr.setError("Maaf, Data Tanggal Lahir Harus Diisi!!");
+            tvTglLhr.requestFocus();
+        }else if(!tvNama.getText().toString().isEmpty() && !tvAlamat.getText().toString().isEmpty() && !tvNoTelp.getText().toString().isEmpty() && !tvEmail.getText().toString().isEmpty() && tvTglLhr.getText().toString().isEmpty()){
+            tampilkanData();
+        }
+    }
+
+    public void tampilkanData(){
+        validasiNama();
+        pilihJurusan();
+
+        if (pilihJurusannya == null){
+            Toast.makeText(mainActivity.this, "Maaf, Pilih jurusan salah satu!!", Toast.LENGTH_SHORT).show();
+        }else {
+            String nama = tvNama.getText().toString();
+            String alamat = tvAlamat.getText().toString();
+            String email = tvEmail.getText().toString();
+            String telp = tvNoTelp.getText().toString();
+            String tglLahir = tvTglLhr.getText().toString();
+
+            Toast.makeText(mainActivity.this, ""+nama+""+alamat+""+telp+""+email+""+tglLahir+""+pilihJurusannya, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+}
